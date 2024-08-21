@@ -76,6 +76,11 @@ app.get('/user-dashboard', authenticateToken, authorizeRole(['asesor']), (req, r
   res.json({ message: 'Bienvenido al dashboard de asesor' });
 });
 
+app.get('/verify-token', authenticateToken, (req, res) => {
+  // Si llegamos aquí, el token es válido
+  res.json({ valid: true, user: req.user });
+});
+
 // Iniciar el servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));

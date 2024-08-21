@@ -42,5 +42,5 @@ export const menuItems = [
     ]
   },
   { name: "Cobranzas", path: "/cobranzas", icon: CreditCard, roles: ["admin", "advisor"] },
-  { name: "Cerrar Sesión", path: "/logout", icon: LogOut, roles: ["admin", "advisor"] },
+  { name: "Cerrar Sesión", path: "/", icon: LogOut, roles: ["admin", "advisor"] },
 ];

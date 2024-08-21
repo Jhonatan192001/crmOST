@@ -13,14 +13,18 @@ import AdvisorDashboard from "./pages/AdvisorDashboard";
 
 // Componente ProtectedRoute con validación de props
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Cargando...</div>; // componente de carga
+  }
   
   if (!user) {
     return <Navigate to="/" replace />;
   }
   
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/unauthorized" replace />;
   }
   
   return children;
@@ -39,21 +43,21 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route
-            path="/admin-dashboard"
+          <Route 
+            path="/admin-dashboard" 
             element={
-              <ProtectedRoute allowedRoles={["Administrador"]}>
+              <ProtectedRoute allowedRoles={['Administrador']}>
                 <AdminDashboard />
               </ProtectedRoute>
-            }
+            } 
           />
-          <Route
-            path="/user-dashboard"
+          <Route 
+            path="/user-dashboard" 
             element={
-              <ProtectedRoute allowedRoles={["asesor"]}>
+              <ProtectedRoute allowedRoles={['asesor']}>
                 <AdvisorDashboard />
               </ProtectedRoute>
-            }
+            } 
           />
         </Routes>
       </Router>

@@ -8,14 +8,32 @@ const api = axios.create({
   baseURL: API_URL,
 });
 
-// Interceptor para añadir el token de autenticación a todas las solicitudes
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Interceptor para añadir el token de autenticación a todas las 
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Token expirado o inválido
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
+      window.location = '/';
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Función de login
 export const login = async (username, password) => {
