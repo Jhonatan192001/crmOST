@@ -11,7 +11,7 @@ const Button = ({
   return (
     <button
       className={cn(
-        "w-full py-2 px-4 bg-[#083344] text-white rounded-md hover:bg-[#083344]/60 font-bold shadow-md shadow-black flex items-center justify-center",
+        "w-full py-2 px-4 bg-[#043F61] text-white hover:bg-[#083344] font-bold flex items-center justify-center",
         Icon && iconPosition === "left" ? "flex-row" : "flex-row-reverse",
         className
       )}

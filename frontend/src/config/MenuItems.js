@@ -1,4 +1,4 @@
-import { Home, Users, PhoneCall, ShoppingCart, Package, CreditCard, LogOut } from 'lucide-react';
+import { Home, Users, PhoneCall, ShoppingCart, Package, CreditCard } from 'lucide-react';
 
 export const menuItems = [
   { name: "Inicio", path: "/", icon: Home, roles: ["admin", "advisor"] },
@@ -42,5 +42,4 @@ export const menuItems = [
     ]
   },
   { name: "Cobranzas", path: "/cobranzas", icon: CreditCard, roles: ["admin", "advisor"] },
-  { name: "Cerrar Sesión", path: "/", icon: LogOut, roles: ["admin", "advisor"] },
 ];

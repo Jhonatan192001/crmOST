@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 // Importaciones de servicios y componentes
 import { login } from "../services/api";
 import { Link } from "react-router-dom";
-import Logo from "../../public/logo.webp";
+import Logo from "../assets/logo.webp";
 import Input from "../components/ui/Input";
 import Label from "../components/ui/Label";
 import Button from "../components/ui/Button";
@@ -90,7 +90,7 @@ const Login = () => {
               Usuario
             </Label>
             <Input
-              type="text"
+              type="email"
               name="username"
               value={formData.username}
               onChange={handleChange}
@@ -115,7 +115,7 @@ const Login = () => {
 
           {errors.form && <p className="text-red-500">{errors.form}</p>}
 
-          <Button type="submit" disabled={isLoading}>
+          <Button className="rounded-md shadow-md shadow-black" type="submit" disabled={isLoading}>
             {isLoading ? "Cargando..." : TEXTS.submit}
           </Button>
         </form>
