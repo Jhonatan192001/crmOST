@@ -10,7 +10,7 @@ import Logo from "../assets/logo.webp";
 import Input from "../components/ui/Input";
 import Label from "../components/ui/Label";
 import Button from "../components/ui/Button";
-import Layout from "../components/login/Layout";
+import LayoutLogin from "../components/login/LayoutLogin";
 
 // Constantes
 const TEXTS = {
@@ -72,7 +72,7 @@ const Login = () => {
   };
 
   return (
-    <Layout>
+    <LayoutLogin>
       <main className="w-full max-w-sm mx-auto p-6">
         <img
           className="w-52 h-28 mb-6 mx-auto"
@@ -128,7 +128,7 @@ const Login = () => {
           </Link>
         </div>
       </main>
-    </Layout>
+    </LayoutLogin>
   );
 };
 

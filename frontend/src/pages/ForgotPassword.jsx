@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/login/Layout';
+import LayoutLogin from '../components/login/LayoutLogin';
 import Input from '../components/ui/Input';
 import Label from '../components/ui/Label';
 import Button from '../components/ui/Button';
@@ -119,10 +119,10 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Layout>
+    <LayoutLogin>
       <h2 className="text-2xl font-bold text-gray-300 mb-6 text-center">Recuperación de contraseña</h2>
       {renderStep()}
-    </Layout>
+    </LayoutLogin>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAdminDashboard } from "../services/api";
 import { useAuth } from "../context/AuthContext";
-import Layout from "../components/Layout";
+import Layout from "../components/dashboard/Layout";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);

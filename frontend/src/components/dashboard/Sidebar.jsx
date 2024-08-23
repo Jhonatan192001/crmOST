@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronDown, LogOut, X } from "lucide-react";
-import { cn } from "../lib/utils";
-import Button from "./ui/Button";
-import Logo from "../assets/logo.webp";
-import LogoP from "../assets/logoP.webp";
+import { cn } from "../../lib/utils";
+import Button from "../ui/Button";
+import Logo from "../../assets/logo.webp";
+import LogoP from "../../assets/logoP.webp";
+import { useAuth } from "../../context/AuthContext";
 
 // Componente para mostrar el popover de submenús cuando la barra lateral está cerrada
 const SubMenuPopover = ({ isOpen, subItems, parentPath, top }) => {
@@ -144,6 +145,13 @@ const Sidebar = ({
   toggleSidebar,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <aside
@@ -162,7 +170,7 @@ const Sidebar = ({
       >
         {isOpen ? (
           <>
-            <img src={Logo} alt="OST Logo" className="w-32" />
+            <img src={Logo} alt="OST Logo" className="w-32 mx-auto" />
             {isTabletOrMobile && (
               <button onClick={toggleSidebar} className="text-white">
                 <X size={24} />
@@ -195,6 +203,7 @@ const Sidebar = ({
             "w-full px-4 py-2",
             isOpen ? "justify-start" : "justify-center"
           )}
+          onClick={handleLogout}
         >
           <span
             className={cn(

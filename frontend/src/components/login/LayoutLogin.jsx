@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Layout = ({ children }) => {
+const LayoutLogin = ({ children }) => {
     return (
       <div className="min-h-screen overflow-hidden flex items-center justify-center">
         <div
@@ -14,8 +14,8 @@ const Layout = ({ children }) => {
     );
   };
 
-  Layout.propTypes = {
+  LayoutLogin.propTypes = {
     children: PropTypes.node,
   }
   
-  export default Layout;
+  export default LayoutLogin;

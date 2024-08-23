@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import { menuItems } from "../config/MenuItems";
+import { menuItems } from "../../config/MenuItems";
 
 const Layout = ({ children, userRole }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
