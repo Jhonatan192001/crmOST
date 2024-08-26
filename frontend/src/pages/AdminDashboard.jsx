@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getAdminDashboard } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/dashboard/Layout";
+// import AdminHome from "./Administrator/AdminHome";
+import UserList from "./Administrator/UserList";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -30,9 +32,8 @@ const AdminDashboard = () => {
   if (!data) return <div>Cargando...</div>;
   return (
     <Layout userRole="admin">
-      <h2 className="text-2xl font-bold mb-4">Bienvenido, Admin</h2>
-      <p>Aquí está tu contenido específico de administrador.</p>
-      {/* Otros componentes y contenido específico para admin */}
+      {/* <AdminHome/> */}
+      <UserList/>
     </Layout>
   );
 };

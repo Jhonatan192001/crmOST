@@ -28,21 +28,25 @@ const Layout = ({ children, userRole }) => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sidebar 
-        menuItems={menuItems} 
-        userRole={userRole} 
+      <Sidebar
+        menuItems={menuItems}
+        userRole={userRole}
         isOpen={isSidebarOpen}
         isTabletOrMobile={isTabletOrMobile}
         toggleSidebar={toggleSidebar}
       />
-      <div className="flex flex-col flex-1 overflow-hidden">{/* ${isSidebarOpen && !isTabletOrMobile ? 'ml-64' : ''} */}
-        <Header userRole={userRole} toggleSidebar={toggleSidebar} isTabletOrMobile={isTabletOrMobile} />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-4">
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <Header
+          userRole={userRole}
+          toggleSidebar={toggleSidebar}
+          isTabletOrMobile={isTabletOrMobile}
+        />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 bg-white">
           {children}
         </main>
       </div>
     </div>
-  ); 
+  );
 };
 
 Layout.propTypes = {

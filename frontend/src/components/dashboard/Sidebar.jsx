@@ -221,25 +221,45 @@ const Sidebar = ({
 };
 
 // Definición de PropTypes para validación de props
-Sidebar.propTypes = {
-  menuItems: PropTypes.arrayOf(
-    PropTypes.shape({
+SubMenuPopover.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  subItems: PropTypes.arrayOf(PropTypes.shape({
+    path: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  })),
+  parentPath: PropTypes.string.isRequired,
+  top: PropTypes.number.isRequired
+};
+
+MenuItem.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    icon: PropTypes.elementType.isRequired,
+    subItems: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
-      path: PropTypes.string,
-      icon: PropTypes.elementType.isRequired,
-      roles: PropTypes.arrayOf(PropTypes.string).isRequired,
-      subItems: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          path: PropTypes.string.isRequired,
-        })
-      ),
-    })
-  ).isRequired,
+      path: PropTypes.string.isRequired
+    }))
+  }).isRequired,
+  isActive: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired
+};
+
+Sidebar.propTypes = {
+  menuItems: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    icon: PropTypes.elementType.isRequired,
+    roles: PropTypes.arrayOf(PropTypes.string).isRequired,
+    subItems: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      path: PropTypes.string.isRequired
+    }))
+  })).isRequired,
   userRole: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   isTabletOrMobile: PropTypes.bool.isRequired,
-  toggleSidebar: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired
 };
 
 export default Sidebar;

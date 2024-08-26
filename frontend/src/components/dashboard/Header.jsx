@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Bell, Menu } from "lucide-react";
 
-const Header = ({ userRole, toggleSidebar, isTabletOrMobile }) => {
+const Header = ({ /* userRole */ toggleSidebar, isTabletOrMobile }) => {
   return (
-    <header className="bg-white h-16 flex items-center justify-between px-4 shadow-md">
+    <header className="bg-white h-16 flex items-center justify-between px-4 border-b-2">
       <div className="flex-1 flex items-center">
         <button
           onClick={toggleSidebar}
@@ -19,7 +19,13 @@ const Header = ({ userRole, toggleSidebar, isTabletOrMobile }) => {
             alt="User avatar"
             className="w-8 h-8 rounded-full"
           />
-          {/* <span className="text-gray-700 font-medium hidden sm:inline">{userRole}</span> */}
+          <span
+            className={`text-gray-700 font-medium ${
+              isTabletOrMobile ? "hidden" : "inline"
+            }`}
+          >
+            {/* {userRole} */}
+          </span>
         </div>
         <button className="relative text-gray-600 hover:text-gray-800">
           <Bell size={24} />
