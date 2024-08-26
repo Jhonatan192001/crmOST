@@ -5,30 +5,24 @@ import Card from '../ui/Card';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const WeeklySalesChart = ({ newCustomersPercentage }) => {
-  const data = {
-    datasets: [{
-      data: [newCustomersPercentage, 100 - newCustomersPercentage],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.8)',
-        'rgba(200, 200, 200, 0.8)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(200, 200, 200, 1)'
-      ],
-      borderWidth: 1,
-    }],
-  };
-
+const CircleChart = ({ 
+  data,
+  title = "Gráfico Circular",
+  subtitle,
+  centerText,
+  showLegend = false,
+  cutout = '70%',
+  height = '300px'
+}) => {
   const options = {
-    cutout: '70%',
+    cutout: cutout,
     plugins: {
       legend: {
-        display: false
+        display: showLegend,
+        position: 'bottom'
       },
       tooltip: {
-        enabled: false
+        enabled: true
       }
     },
     responsive: true,
@@ -37,21 +31,42 @@ const WeeklySalesChart = ({ newCustomersPercentage }) => {
 
   return (
     <Card className="w-full p-4">
-      <h2 className="text-lg font-semibold mb-4">Ingreso de Clientes</h2>
-      <div className="text-sm text-gray-500 mb-2">% de clientes Semanales</div>
-      <div className="relative" style={{ height: '300px' }}>
+      <h2 className="text-lg font-semibold mb-4">{title}</h2>
+      {subtitle && <div className="text-sm text-gray-500 mb-2">{subtitle}</div>}
+      <div className="relative" style={{ height: height }}>
         <Doughnut data={data} options={options} />
-        <div className="absolute inset-0 flex items-center justify-center flex-col">
-          <span className="text-3xl font-bold">{newCustomersPercentage}%</span>
-          <span className="text-sm text-gray-500">Total de nuevos clientes</span>
-        </div>
+        {centerText && (
+          <div className="absolute inset-0 flex items-center justify-center flex-col">
+            <span className="text-3xl font-bold">{centerText.primary}</span>
+            {centerText.secondary && (
+              <span className="text-sm text-gray-500">{centerText.secondary}</span>
+            )}
+          </div>
+        )}
       </div>
     </Card>
   );
 };
 
-WeeklySalesChart.propTypes = {
-   newCustomersPercentage: PropTypes.string,
-}
+CircleChart.propTypes = {
+  data: PropTypes.shape({
+    labels: PropTypes.arrayOf(PropTypes.string),
+    datasets: PropTypes.arrayOf(PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.number).isRequired,
+      backgroundColor: PropTypes.arrayOf(PropTypes.string),
+      borderColor: PropTypes.arrayOf(PropTypes.string),
+      borderWidth: PropTypes.number
+    }))
+  }).isRequired,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  centerText: PropTypes.shape({
+    primary: PropTypes.string,
+    secondary: PropTypes.string
+  }),
+  showLegend: PropTypes.bool,
+  cutout: PropTypes.string,
+  height: PropTypes.string
+};
 
-export default WeeklySalesChart;
+export default CircleChart;

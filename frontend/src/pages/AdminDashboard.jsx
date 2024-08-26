@@ -3,7 +3,8 @@ import { getAdminDashboard } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/dashboard/Layout";
 // import AdminHome from "./Administrator/AdminHome";
-import UserList from "./Administrator/UserList";
+// import UserList from "./Administrator/UserList";
+import ContactReport from "./Administrator/ContactReport";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -33,7 +34,8 @@ const AdminDashboard = () => {
   return (
     <Layout userRole="admin">
       {/* <AdminHome/> */}
-      <UserList/>
+      {/* <UserList/> */}
+      <ContactReport />
     </Layout>
   );
 };
