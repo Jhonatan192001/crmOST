@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { getAdminDashboard } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/dashboard/Layout";
-// import AdminHome from "./Administrator/AdminHome";
-// import UserList from "./Administrator/UserList";
+import SalesReport from "./Administrator/SalesReport";
+import IncomeList from "./Administrator/IncomeList";
+import SalesList from "./Administrator/SalesList";
+import SalesGenerated from "./Administrator/SalesGenerated";
+import ContactStages from "./Administrator/ContactStages";
+import AdminHome from "./Administrator/AdminHome";
+import UserList from "./Administrator/UserList";
 import ContactReport from "./Administrator/ContactReport";
 
 const AdminDashboard = () => {
@@ -33,9 +38,14 @@ const AdminDashboard = () => {
   if (!data) return <div>Cargando...</div>;
   return (
     <Layout userRole="admin">
-      {/* <AdminHome/> */}
-      {/* <UserList/> */}
+      <AdminHome/>
+      <UserList/>
       <ContactReport />
+      <ContactStages />
+      <SalesGenerated />
+      <SalesList />
+      <SalesReport />
+      <IncomeList />
     </Layout>
   );
 };
