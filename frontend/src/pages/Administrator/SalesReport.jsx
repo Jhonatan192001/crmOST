@@ -3,8 +3,33 @@ import Stats from "../../components/dashboard/Stats";
 import CircleChart from "../../components/dashboard/CircleChart";
 import BarChart from "../../components/dashboard/BarChart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { DollarSign, Clock, Briefcase } from "lucide-react";
 
 const SalesReport = () => {
+  const salesStats = [
+    {
+      icon: <DollarSign className="text-green-500" size={24} />,
+      number: "500",
+      label: "Ventas Realizadas",
+      color: "bg-green-100",
+      bgColor: "bg-green-50"
+    },
+    {
+      icon: <Clock className="text-blue-500" size={24} />,
+      number: "20",
+      label: "Ventas Pendientes",
+      color: "bg-blue-100",
+      bgColor: "bg-blue-50"
+    },
+    {
+      icon: <Briefcase className="text-red-500" size={24} />,
+      number: "15",
+      label: "Ventas Denegadas",
+      color: "bg-red-100",
+      bgColor: "bg-red-50"
+    }
+  ];
+
     // Datos de ejemplo para los gráficos y estadísticas
   const monthlyData = [
     { name: 'Ene', ventas: 4000, instalaciones: 2400, mantenimientos: 2400 },
@@ -28,10 +53,10 @@ const SalesReport = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto">
       <h1 className="text-3xl font-bold mb-8">Reporte de ventas</h1>
       
-      <Stats />
+      <Stats stats={salesStats}/>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
         <Card className="col-span-2">

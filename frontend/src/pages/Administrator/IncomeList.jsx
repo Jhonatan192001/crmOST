@@ -43,8 +43,8 @@ const IncomeList = () => {
       const totalSales = salesData.reduce((sum, sale) => sum + sale.total, 0);
     
       return (
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">Ingresos de Ventas de Cámaras de Seguridad</h1>
+        <div className="container mx-auto">
+          <h1 className="text-3xl font-bold mb-6">Ingresos de Ventas de Servicios</h1>
           
           <Card className="mb-6">
             <div className="flex justify-between items-center">

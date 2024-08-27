@@ -1,8 +1,33 @@
+import { Briefcase, Clock, DollarSign } from "lucide-react";
 import BarChart from "../../components/dashboard/BarChart";
 import CircleChart from "../../components/dashboard/CircleChart";
-import Stats from "../../components/dashboard/stats";
+import Stats from "../../components/dashboard/Stats";
 
 const SalesGenerated = () => {
+  const salesStats = [
+    {
+      icon: <DollarSign className="text-green-500" size={24} />,
+      number: "500",
+      label: "Ventas Realizadas",
+      color: "bg-green-100",
+      bgColor: "bg-green-50"
+    },
+    {
+      icon: <Clock className="text-blue-500" size={24} />,
+      number: "20",
+      label: "Ventas Pendientes",
+      color: "bg-blue-100",
+      bgColor: "bg-blue-50"
+    },
+    {
+      icon: <Briefcase className="text-red-500" size={24} />,
+      number: "15",
+      label: "Ventas Denegadas",
+      color: "bg-red-100",
+      bgColor: "bg-red-50"
+    }
+  ];
+
     const salesData = {
         weekly: [20, 25, 30, 35, 40, 45, 50],
         monthly: [20, 30, 40, 35, 25, 45, 55, 65, 50, 40, 35, 45],
@@ -28,7 +53,7 @@ const SalesGenerated = () => {
   return (
     <div className="min-h-full">
       <div className="container mx-auto">
-        <Stats />
+      <Stats stats={salesStats}/>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <BarChart
             data={salesData}

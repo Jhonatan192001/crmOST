@@ -1,5 +1,5 @@
+import PropTypes from "prop-types";
 import Card from "../ui/Card";
-import { DollarSign, Clock, Briefcase } from "lucide-react";
 
 const StatCard = ({ icon, number, label, color }) => (
   <div className="flex items-center p-4">
@@ -17,36 +17,40 @@ const StatCard = ({ icon, number, label, color }) => (
   </div>
 );
 
-const Stats = () => {
+StatCard.propTypes = {
+  icon: PropTypes.element,
+  number: PropTypes.string,
+  label: PropTypes.string,
+  color: PropTypes.string,
+};
+
+const Stats = ({ stats }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <Card className="bg-green-50 shadow-lg">
-        <StatCard
-          icon={<DollarSign className="text-green-500" size={24} />}
-          number="500"
-          label="Ventas Realizadas"
-          color="bg-green-100"
-        />
-      </Card>
-      <Card className="bg-blue-50 shadow-lg">
-        <StatCard
-          icon={<Clock className="text-blue-500" size={24} />}
-          number="20"
-          label="Ventas Pendientes"
-          color="bg-blue-100"
-        />
-      </Card>
-      <Card className="bg-red-50 shadow-lg">
-        <StatCard
-          icon={<Briefcase className="text-red-500" size={24} />}
-          number="15"
-          label="Ventas Denegadas"
-          color="bg-red-100"
-        />
-      </Card>
-      
+      {stats.map((stat, index) => (
+        <Card key={index} className={`${stat.bgColor} shadow-lg`}>
+          <StatCard
+            icon={stat.icon}
+            number={stat.number}
+            label={stat.label}
+            color={stat.color}
+          />
+        </Card>
+      ))}
     </div>
   );
+};
+
+Stats.propTypes = {
+  stats: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.element.isRequired,
+      number: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+      bgColor: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Stats;

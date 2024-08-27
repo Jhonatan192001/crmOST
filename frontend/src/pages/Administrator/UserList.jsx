@@ -216,10 +216,10 @@ const UserList = () => {
         <div className="flex justify-end mb-3">
           <Button
             onClick={() => setIsCreateModalOpen(true)}
+            icon={UserPlus}
             className="rounded-3xl w-44"
           >
             Nuevo Usuario
-            <UserPlus size={18} className="mr-2" />
           </Button>
         </div>
         <DataTableContainer data={userData} columns={columns} />
