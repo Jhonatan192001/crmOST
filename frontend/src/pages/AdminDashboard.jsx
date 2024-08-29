@@ -9,7 +9,6 @@ import SalesGenerated from "./Administrator/SalesGenerated";
 import ContactStages from "./Administrator/ContactStages";
 import AdminHome from "./Administrator/AdminHome";
 import UserList from "./Administrator/UserList";
-import ContactReport from "./Administrator/ContactReport";
 import ProductList from "./Administrator/ProductList";
 import KardexProducts from "./Administrator/KardexProducts";
 
@@ -40,20 +39,19 @@ const AdminDashboard = () => {
   if (!data) return <div>Cargando...</div>;
   return (
     <Layout userRole="admin">
-      <AdminHome/>
-      <h1>usuarios</h1>
-      <UserList/>
-      <h1>Contactos</h1>
-      <ContactReport />
+      {/* <AdminHome/> */}
+      {/* <h1>usuarios</h1> */}
+      {/* <UserList/> */}
+      {/* <h1>Contactos</h1> */}
       <ContactStages />
-      <h1>Ventas</h1>
+      {/* <h1>Ventas</h1>
       <SalesGenerated />
       <SalesList />
       <SalesReport />
-      <IncomeList />
-      <h1>Inventario</h1>
-      <ProductList />
-      <KardexProducts />
+      <IncomeList /> */}
+      {/* <h1>Inventario</h1> */}
+      {/* <ProductList />
+      <KardexProducts /> */}
     </Layout>
   );
 };

@@ -1,9 +1,9 @@
 import { Home, Users, PhoneCall, ShoppingCart, Package, CreditCard } from 'lucide-react';
 
 export const menuItems = [
-  { name: "Inicio", path: "/", icon: Home, roles: ["admin", "advisor"] },
-  { 
-    name: "Usuarios", 
+  { name: "Inicio", path: "/home", icon: Home, roles: ["admin", "advisor"] },
+  {
+    name: "Usuarios",
     icon: Users,
     roles: ["admin"],
     subItems: [
@@ -11,17 +11,14 @@ export const menuItems = [
       { name: "Roles y Permisos", path: "/usuarios/roles" },
     ]
   },
-  { 
-    name: "Contacto", 
+  {
+    name: "Gestión de Clientes",
+    path: "/customer_management",
     icon: PhoneCall,
     roles: ["admin", "advisor"],
-    subItems: [
-      { name: "Reporte de Contactos", path: "/contacto/reporte" },
-      { name: "Gestión de Etapas", path: "/contacto/etapas" },
-    ]
   },
-  { 
-    name: "Ventas", 
+  {
+    name: "Ventas",
     icon: ShoppingCart,
     roles: ["admin", "advisor"],
     subItems: [
@@ -31,8 +28,8 @@ export const menuItems = [
       { name: "Lista de Ingresos", path: "/ventas/ingresos" },
     ]
   },
-  { 
-    name: "Inventario", 
+  {
+    name: "Inventario",
     icon: Package,
     roles: ["admin"],
     subItems: [

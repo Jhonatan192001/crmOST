@@ -4,7 +4,7 @@ import { flexRender } from '@tanstack/react-table';
 const Table = ({ table }) => {
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white">
+      <table className="min-w-full min-h-full bg-white">
         <thead className="bg-gray-100">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

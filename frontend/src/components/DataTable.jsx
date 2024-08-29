@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   useReactTable,
@@ -7,64 +7,82 @@ import {
   getPaginationRowModel,
 } from "@tanstack/react-table";
 import Table from "./ui/Table";
-import SearchBar from "./ui/Search";
 import Pagination from "./ui/Pagination";
+import SearchBar from "./ui/Search";
 
-const DataTableContainer = ({ data, columns, customFilters }) => {
-  const [globalFilter, setGlobalFilter] = useState("");
+const DataTableContainer = ({ data, columns, customFilters, onRowClick }) => {
   const [filters, setFilters] = useState({});
+  const [globalFilter, setGlobalFilter] = useState('');
+
+  useEffect(() => {
+    if (customFilters) {
+      const initialFilters = customFilters.reduce((acc, filter) => {
+        acc[filter.name] = "";
+        return acc;
+      }, {});
+      setFilters(initialFilters);
+    }
+  }, [customFilters]);
 
   const filteredData = useMemo(() => {
     return data.filter((item) => {
+      // Aplicar filtro global
+      if (globalFilter && !Object.values(item).some(val => 
+        String(val).toLowerCase().includes(globalFilter.toLowerCase())
+      )) {
+        return false;
+      }
+      
+      // Aplicar filtros personalizados
       return Object.entries(filters).every(([key, value]) => {
         if (!value) return true;
-        return item[key] === value;
+        return String(item[key]).toLowerCase().includes(value.toLowerCase());
       });
     });
-  }, [data, filters]);
+  }, [data, filters, globalFilter]);
 
   const table = useReactTable({
     data: filteredData,
     columns,
-    state: {
-      globalFilter,
-    },
-    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
 
   const handleFilterChange = (filterName, value) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterName]: value,
+    setFilters(prev => ({
+      ...prev,
+      [filterName]: value
     }));
   };
 
   return (
     <div>
-      <div className="flex items-center space-x-4 p-2 rounded-lg mb-4">
-        <div className="flex-grow">
-          <SearchBar
-            globalFilter={globalFilter}
-            onGlobalFilterChange={setGlobalFilter}
-            placeholder="Buscar..."
-          />
-        </div>
-        {customFilters &&
-          customFilters.map((filter) => (
-            <filter.component
-              key={filter.name}
-              value={filters[filter.name] || ""}
-              onChange={(e) => handleFilterChange(filter.name, e.target.value)}
-              options={filter.options}
-              placeholder={filter.placeholder}
-            />
-          ))}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+        <SearchBar
+          globalFilter={globalFilter}
+          onGlobalFilterChange={setGlobalFilter}
+          placeholder="Buscar..."
+          className="w-full"
+        />
+        {customFilters && (
+          <div className="flex flex-wrap gap-2">
+            {customFilters.map((filter) => (
+              <filter.component
+                key={filter.name}
+                value={filters[filter.name] || ""}
+                onChange={(e) => handleFilterChange(filter.name, e.target.value)}
+                options={filter.options}
+                placeholder={filter.placeholder}
+              />
+            ))}
+          </div>
+        )}
       </div>
-      <Table table={table} />
-      <Pagination table={table} />
+      <div className="overflow-x-auto">
+        <Table table={table} onRowClick={onRowClick} />
+        <Pagination table={table} />
+      </div>
     </div>
   );
 };
@@ -80,6 +98,7 @@ DataTableContainer.propTypes = {
       placeholder: PropTypes.string,
     })
   ),
+  onRowClick: PropTypes.func,
 };
 
 export default DataTableContainer;

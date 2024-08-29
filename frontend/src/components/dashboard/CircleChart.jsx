@@ -12,7 +12,8 @@ const CircleChart = ({
   centerText,
   showLegend = false,
   cutout = '70%',
-  height = '300px'
+  height = '300px',
+  onClick
 }) => {
   const options = {
     cutout: cutout,
@@ -26,7 +27,8 @@ const CircleChart = ({
       }
     },
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    onClick: onClick
   };
 
   return (
@@ -66,7 +68,8 @@ CircleChart.propTypes = {
   }),
   showLegend: PropTypes.bool,
   cutout: PropTypes.string,
-  height: PropTypes.string
+  height: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default CircleChart;

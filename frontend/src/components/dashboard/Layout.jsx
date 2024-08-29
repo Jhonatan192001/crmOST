@@ -41,7 +41,7 @@ const Layout = ({ children, userRole }) => {
           toggleSidebar={toggleSidebar}
           isTabletOrMobile={isTabletOrMobile}
         />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto p-8 bg-white">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto px-4 lg:px-8 py-4 bg-white">
           {children}
         </main>
       </div>
