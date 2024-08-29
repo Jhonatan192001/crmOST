@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { getAdminDashboard } from "../services/api";
 import { useAuth } from "../context/AuthContext";
-import Layout from "../components/dashboard/Layout";
-import SalesReport from "./Administrator/SalesReport";
-import IncomeList from "./Administrator/IncomeList";
-import SalesList from "./Administrator/SalesList";
-import SalesGenerated from "./Administrator/SalesGenerated";
+import Layout from "../components/dashboard/Layout"; 
+import CatalogPage from "./Administrator/CatalogPage";
+import SalesOpportunities from "./Administrator/SalesOpportunities";
 import ContactStages from "./Administrator/ContactStages";
 import AdminHome from "./Administrator/AdminHome";
-import UserList from "./Administrator/UserList";
-import ProductList from "./Administrator/ProductList";
-import KardexProducts from "./Administrator/KardexProducts";
+import SubscriptionManagement from "./Administrator/Supscription";
+import CalendarAndScheduling from "./Administrator/ViewScheduling";
+import ReportsAndAnalysis from "./Administrator/Reports";
+// import UserList from "./Administrator/UserList";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -39,19 +38,18 @@ const AdminDashboard = () => {
   if (!data) return <div>Cargando...</div>;
   return (
     <Layout userRole="admin">
-      {/* <AdminHome/> */}
+      <AdminHome/>
       {/* <h1>usuarios</h1> */}
       {/* <UserList/> */}
       {/* <h1>Contactos</h1> */}
       <ContactStages />
-      {/* <h1>Ventas</h1>
-      <SalesGenerated />
-      <SalesList />
-      <SalesReport />
-      <IncomeList /> */}
+      {/* <h1>Ventas</h1> */}
+      <SalesOpportunities />
       {/* <h1>Inventario</h1> */}
-      {/* <ProductList />
-      <KardexProducts /> */}
+      <CatalogPage />
+      <SubscriptionManagement />
+      <CalendarAndScheduling />
+      <ReportsAndAnalysis />
     </Layout>
   );
 };
