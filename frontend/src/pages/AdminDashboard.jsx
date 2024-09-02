@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import { getAdminDashboard } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import Layout from "../components/dashboard/Layout"; 
-import CatalogPage from "./Administrator/CatalogPage";
-import SalesOpportunities from "./Administrator/SalesOpportunities";
-import ContactStages from "./Administrator/ContactStages";
+//
 import AdminHome from "./Administrator/AdminHome";
-import SubscriptionManagement from "./Administrator/Supscription";
-import CalendarAndScheduling from "./Administrator/ViewScheduling";
+import CatalogPage from "./Administrator/CatalogPage";
+import CommunicationCenter from "./Administrator/Comunication";
+import ContactStages from "./Administrator/ContactStages";
+import InstallationMap from "./Administrator/Installation";
+import InventoryManagement from "./Administrator/Inventory";
 import ReportsAndAnalysis from "./Administrator/Reports";
-// import UserList from "./Administrator/UserList";
+import SalesOpportunities from "./Administrator/SalesOpportunities";
+import SubscriptionManagement from "./Administrator/Supscription";
+import UserRoleManagement from "./Administrator/UserList";
+import CalendarAndScheduling from "./Administrator/ViewScheduling";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -39,17 +43,16 @@ const AdminDashboard = () => {
   return (
     <Layout userRole="admin">
       <AdminHome/>
-      {/* <h1>usuarios</h1> */}
-      {/* <UserList/> */}
-      {/* <h1>Contactos</h1> */}
       <ContactStages />
-      {/* <h1>Ventas</h1> */}
       <SalesOpportunities />
-      {/* <h1>Inventario</h1> */}
       <CatalogPage />
       <SubscriptionManagement />
       <CalendarAndScheduling />
       <ReportsAndAnalysis />
+      <UserRoleManagement />
+      <CommunicationCenter />
+      <InventoryManagement />
+      <InstallationMap />
     </Layout>
   );
 };

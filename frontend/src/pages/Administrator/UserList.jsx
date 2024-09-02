@@ -1,497 +1,115 @@
-import { useState } from "react";
-import DataTableContainer from "../../components/DataTable";
-import { UserPlus, Edit2, Trash2 } from "lucide-react";
-import Button from "../../components/ui/Button";
-import Modal from "../../components/ui/Modal";
-import Input from "../../components/ui/Input";
-import Label from "../../components/ui/Label";
+import { useState } from 'react';
+import Card  from '../../components/ui/Card';
+import { TabsList, TabsTrigger, TabsContent, TabsContainer } from '../../components/ui/Tabs';
+import Input from '../../components/ui/Input';
+import Table from '../../components/ui/Table';
+import Button from '../../components/ui/Button';
+import { UserPlus, Shield, Key, Search, Edit2, Trash2 } from 'lucide-react';
+import { useReactTable, getCoreRowModel } from '@tanstack/react-table';
 
-const UserList = () => {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [formData, setFormData] = useState({
-    nombres: "",
-    apellidos: "",
-    email: "",
-    telefono: "",
-    empresa: "",
-    ruc: "",
-    cargo: "",
-    usuario: "",
-    password: "",
-    repeatPassword: "",
-  });
+const UserRoleManagement = () => {
+  const [users] = useState([
+    { id: 1, name: 'Juan Pérez', email: 'juan@ejemplo.com', role: 'Administrador' },
+    { id: 2, name: 'María García', email: 'maria@ejemplo.com', role: 'Supervisor' },
+    { id: 3, name: 'Carlos López', email: 'carlos@ejemplo.com', role: 'Operador' },
+  ]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const [roles] = useState(['Administrador', 'Supervisor', 'Operador']);
 
-  const handleCreateSubmit = (e) => {
-    e.preventDefault();
-    console.log("Crear usuario:", formData);
-    setIsCreateModalOpen(false);
-  };
-
-  const handleUpdateSubmit = (e) => {
-    e.preventDefault();
-    console.log("Actualizar usuario:", formData);
-    setIsUpdateModalOpen(false);
-  };
-
-  const handleDelete = () => {
-    console.log("Eliminar usuario:", selectedUser);
-    setIsDeletePopupOpen(false);
-  };
-
-  const openUpdateModal = (user) => {
-    setSelectedUser(user);
-    setFormData({
-      ...user,
-      password: "",
-      repeatPassword: "",
-    });
-    setIsUpdateModalOpen(true);
-  };
-
-  const openDeletePopup = (user) => {
-    setSelectedUser(user);
-    setIsDeletePopupOpen(true);
-  };
-
-  const userData = [
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-    {
-      name: "Jane Cooper",
-      email: "tim.jennings@you.com",
-      phone: "(302) 555-0107",
-      company: "Empresa8",
-    },
-    {
-      name: "Guy Hawkins",
-      email: "georgia.young@i.com",
-      phone: "(239) 555-0108",
-      company: "Empresa9",
-    },
-  ];
+  const [permissions] = useState([
+    { id: 1, name: 'Ver dashboard', roles: ['Administrador', 'Supervisor', 'Operador'] },
+    { id: 2, name: 'Gestionar usuarios', roles: ['Administrador'] },
+    { id: 3, name: 'Generar reportes', roles: ['Administrador', 'Supervisor'] },
+  ]);
 
   const columns = [
-    { header: "Nombre", accessorKey: "name" },
-    { header: "Correo Electrónico", accessorKey: "email" },
-    { header: "Teléfono", accessorKey: "phone" },
-    { header: "Empresa", accessorKey: "company" },
+    { header: 'Nombre', accessorKey: 'name' },
+    { header: 'Email', accessorKey: 'email' },
+    { header: 'Rol', accessorKey: 'role' },
     {
-        header: "Acciones",
-        cell: ({ row }) => (
-          <div className="flex space-x-6">
-            <div className="relative group">
-              <button
-                className="text-blue-500 hover:text-blue-700"
-                onClick={() => openUpdateModal(row.original)}
-              >
-                <Edit2 size={18} />
-              </button>
-              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max p-1 text-xs bg-gray-800 text-white rounded opacity-0 group-hover:opacity-100">
-                Editar
-              </span>
-            </div>
-            <div className="relative group">
-              <button
-                className="text-red-500 hover:text-red-700"
-                onClick={() => openDeletePopup(row.original)}
-              >
-                <Trash2 size={18} />
-              </button>
-              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-max p-1 text-xs bg-gray-800 text-white rounded opacity-0 group-hover:opacity-100">
-                Eliminar
-              </span>
-            </div>
-          </div>
-        ),
-      }
-      
+      header: 'Acciones',
+      cell: () => (
+        <div className="flex space-x-2">
+          <Button className="px-2 py-1 text-sm" icon={Edit2}>Editar</Button>
+          <Button className="px-2 py-1 text-sm bg-red-600 hover:bg-red-700" icon={Trash2}>Eliminar</Button>
+        </div>
+      ),
+    },
   ];
 
+  const table = useReactTable({
+    data: users,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
-    <div className="min-h-full">
-      <div className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Administración de Usuarios</h1>
-        <div className="flex justify-end mb-3">
-          <Button
-            onClick={() => setIsCreateModalOpen(true)}
-            icon={UserPlus}
-            className="rounded-3xl w-44"
-          >
-            Nuevo Usuario
-          </Button>
-        </div>
-        <DataTableContainer data={userData} columns={columns} />
-
-        {/* modal de crear nuevo usuario */}
-        <Modal
-          isOpen={isCreateModalOpen}
-          onClose={() => setIsCreateModalOpen(false)}
-          title="Nuevo Usuario"
-          footer={
-            <>
-              <Button
-                onClick={() => setIsCreateModalOpen(false)}
-                className="bg-gray-300 hover:bg-gray-400 text-black"
-              >
-                Cancelar
-              </Button>
-              <Button onClick={handleCreateSubmit}>Registrar</Button>
-            </>
-          }
-        >
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label name="firsName">Nombres</Label>
-              <Input
-                name="nombres"
-                placeholder="Ingrese nombres completos"
-                value={formData.nombres}
-                onChange={handleInputChange}
-              />
+    <Card title="Gestión de Usuarios y Roles" className="w-full max-w-full mx-auto">
+      <TabsContainer defaultValue="users">
+        <TabsList>
+          <TabsTrigger value="users">Lista de Usuarios</TabsTrigger>
+          <TabsTrigger value="roles">Asignación de Roles</TabsTrigger>
+          <TabsTrigger value="permissions">Permisos y Accesos</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="users">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <div className="w-64">
+                <Input
+                  type="text"
+                  name="search"
+                  placeholder="Buscar usuarios..."
+                  icon={Search}
+                />
+              </div>
+              <Button className="w-72" icon={UserPlus}>Agregar Usuario</Button>
             </div>
-            <div>
-              <Label name="secound">Apellidos</Label>
-              <Input
-                name="apellidos"
-                placeholder="Ingrese apellidos completos"
-                value={formData.apellidos}
-                onChange={handleInputChange}
-              />
+            <Table table={table} />
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="roles">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Roles Disponibles</h3>
+              <Button className="w-72" icon={Shield}>Crear Nuevo Rol</Button>
             </div>
-            <div>
-              <Label name="email">Email</Label>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Ingrese el correo electrónico"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="phone">Telefono</Label>
-              <Input
-                name="telefono"
-                placeholder="Ingrese el teléfono o celular"
-                value={formData.telefono}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="">Empresa</Label>
-              <Input
-                name="empresa"
-                placeholder="Ingrese el nombre de empresa"
-                value={formData.empresa}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="ruc">RUC:</Label>
-              <Input
-                name="ruc"
-                placeholder="Ingrese el RUC"
-                value={formData.ruc}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="">Cargo</Label>
-              <Input
-                name="cargo"
-                placeholder="Ingrese el cargo que ocupa"
-                value={formData.cargo}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="username">Usuario:</Label>
-              <Input
-                name="usuario"
-                placeholder="Ingrese nombre de usuario"
-                value={formData.usuario}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="password">Contraseña:</Label>
-              <Input
-                name="password"
-                type="password"
-                placeholder="Ingrese el nombre de empresa"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="repeatPassword">Repetir Contraseña</Label>
-              <Input
-                name="repeatPassword"
-                type="password"
-                placeholder="Ingrese nuevamente la contraseña"
-                value={formData.repeatPassword}
-                onChange={handleInputChange}
-                errorMessage={
-                  formData.password !== formData.repeatPassword
-                    ? "La contraseña no coincide"
-                    : ""
-                }
-              />
+            <div className="grid grid-cols-3 gap-4">
+              {roles.map((role, index) => (
+                <Card key={index} title={role}>
+                  <Button className="w-full">Editar Permisos</Button>
+                </Card>
+              ))}
             </div>
           </div>
-        </Modal>
-
-        {/* modal para actualizar usuario */}
-        <Modal
-          isOpen={isUpdateModalOpen}
-          onClose={() => setIsUpdateModalOpen(false)}
-          title="Actualizar Usuario"
-          footer={
-            <>
-              <Button
-                onClick={() => setIsUpdateModalOpen(false)}
-                className="bg-gray-300 hover:bg-gray-400 text-black"
-              >
-                Cancelar
-              </Button>
-              <Button onClick={handleUpdateSubmit}>Actualizar</Button>
-            </>
-          }
-        >
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label name="firsName">Nombres</Label>
-              <Input
-                name="nombres"
-                placeholder="Ingrese nombres completos"
-                value={formData.nombres}
-                onChange={handleInputChange}
-              />
+        </TabsContent>
+        
+        <TabsContent value="permissions">
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold">Permisos del Sistema</h3>
+              <Button className="w-72" icon={Key}>Agregar Permiso</Button>
             </div>
-            <div>
-              <Label name="secound">Apellidos</Label>
-              <Input
-                name="apellidos"
-                placeholder="Ingrese apellidos completos"
-                value={formData.apellidos}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="email">Email</Label>
-              <Input
-                name="email"
-                type="email"
-                placeholder="Ingrese el correo electrónico"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="phone">Telefono</Label>
-              <Input
-                name="telefono"
-                placeholder="Ingrese el teléfono o celular"
-                value={formData.telefono}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="">Empresa</Label>
-              <Input
-                name="empresa"
-                placeholder="Ingrese el nombre de empresa"
-                value={formData.empresa}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="ruc">RUC:</Label>
-              <Input
-                name="ruc"
-                placeholder="Ingrese el RUC"
-                value={formData.ruc}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="">Cargo</Label>
-              <Input
-                name="cargo"
-                placeholder="Ingrese el cargo que ocupa"
-                value={formData.cargo}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="username">Usuario:</Label>
-              <Input
-                name="usuario"
-                placeholder="Ingrese nombre de usuario"
-                value={formData.usuario}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="password">Contraseña:</Label>
-              <Input
-                name="password"
-                type="password"
-                placeholder="Ingrese el nombre de empresa"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Label name="repeatPassword">Repetir Contraseña</Label>
-              <Input
-                name="repeatPassword"
-                type="password"
-                placeholder="Ingrese nuevamente la contraseña"
-                value={formData.repeatPassword}
-                onChange={handleInputChange}
-                errorMessage={
-                  formData.password !== formData.repeatPassword
-                    ? "La contraseña no coincide"
-                    : ""
-                }
-              />
-            </div>
+            <Table
+              table={useReactTable({
+                data: permissions,
+                columns: [
+                  { header: 'Permiso', accessorKey: 'name' },
+                  { header: 'Roles Asignados', accessorKey: 'roles', cell: ({ cell }) => cell.getValue().join(', ') },
+                  {
+                    header: 'Acciones',
+                    cell: () => <Button className="px-2 py-1 text-sm" icon={Edit2}>Editar</Button>,
+                  },
+                ],
+                getCoreRowModel: getCoreRowModel(),
+              })}
+            />
           </div>
-        </Modal>
-
-        {/* pop-up para confirmar eliminación de usuario */}
-        <Modal
-          isOpen={isDeletePopupOpen}
-          onClose={() => setIsDeletePopupOpen(false)}
-          title="Confirmar Eliminación"
-          className="max-w-md"
-          footer={
-            <>
-              <Button
-                onClick={() => setIsDeletePopupOpen(false)}
-                className="bg-gray-300 hover:bg-gray-400 text-black"
-              >
-                Cancelar
-              </Button>
-              <Button
-                onClick={handleDelete}
-                className="bg-red-500 hover:bg-red-600"
-              >
-                Eliminar
-              </Button>
-            </>
-          }
-        >
-          <p>
-            ¿Está seguro que desea eliminar al usuario {selectedUser?.name}?
-          </p>
-        </Modal>
-      </div>
-    </div>
+        </TabsContent>
+      </TabsContainer>
+    </Card>
   );
 };
 
-export default UserList;
+export default UserRoleManagement;

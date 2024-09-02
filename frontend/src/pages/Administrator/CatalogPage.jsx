@@ -52,7 +52,7 @@ const CatalogPage = () => {
                 <p className="text-gray-600 mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-bold">${product.price}</span>
-                  <Button>Añadir al carrito</Button>
+                  {/* <Button>Añadir al carrito</Button> */}
                 </div>
               </Card>
             ))}
